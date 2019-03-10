@@ -1,11 +1,11 @@
 const renderLayers = {
   foreground: new retron.RenderLayer({ className: 'foreground' })
 }
-const renderer = new retron.Renderer({ 
+const renderer = new retron.Renderer({
   layers: renderLayers,
   className: 'game-renderer',
-  width: 320,
-  height: 180
+  width: 640,
+  height: 400
 });
 const imageLoader = new retron.ImageLoader;
 const inputManager = new retron.InputManager;
@@ -14,12 +14,12 @@ let carSprite;
 let carDirection = new retron.Vector2(1, 0);
 let carTurnSpeed = 3;
 let carAcceleration = 1;
-let carMaxSpeed = 20;
+let carMaxSpeed = 10;
 
 // Load game assets and return the promise
 const loadAssets = () => {
-  return imageLoader.load({ 
-    path: './images/car.png' 
+  return imageLoader.load({
+    path: './images/car.png'
   }).then(image => carSprite = image);
 };
 
@@ -42,7 +42,7 @@ const keyBoardControls = () => {
   if (inputManager.keyPressed('arrowUp')) {
     carObj.acceleration.add(carDirection.scale(carAcceleration));
   }
-  
+
   if (inputManager.keyPressed('arrowDown')) {
     carObj.acceleration.subtract(carDirection.scale(carAcceleration));
   }
@@ -55,7 +55,7 @@ const keyBoardControls = () => {
     if (inputManager.keyPressed('arrowLeft')) {
       carObj.rotation -= Math.PI / 180 * carTurnSpeed;
     }
-    
+
     if (inputManager.keyPressed('arrowRight')) {
       carObj.rotation += Math.PI / 180 * carTurnSpeed;
     }
@@ -67,13 +67,13 @@ const keyBoardControls = () => {
 // Update function to run in retron update loop
 const update = () => {
   keyBoardControls();
-  
+
   // Steer in direction of car rotation
   carObj.velocity.setDirection(carObj.rotation);
 
   // Limit car speed to max speed
   carObj.velocity.clampMagnitude(carMaxSpeed);
-  
+
   renderer.layers.foreground.render(ctx => {
     carObj.draw(ctx);
   });
@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Disable anti aliasing
     renderLayers.foreground.ctx.imageSmoothingEnabled = false;
 
-    // Append and scale renderer  
-    document.body.append(renderer.element);  
+    // Append and scale renderer
+    document.body.append(renderer.element);
 
     // Assign update tasks and start core update loop
     retron.updateTasks.add(update);

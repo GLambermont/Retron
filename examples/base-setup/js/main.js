@@ -3,9 +3,11 @@ const renderLayers = {
   midground: new retron.RenderLayer({ className: 'midground' }),
   foreground: new retron.RenderLayer({ className: 'foreground' })
 }
-const renderer = new retron.Renderer({ 
+const renderer = new retron.Renderer({
   layers: renderLayers,
-  className: 'game-renderer'
+  className: 'game-renderer',
+  width: 1280,
+  height: 800
 });
 const imageLoader = new retron.ImageLoader;
 const inputManager = new retron.InputManager;
@@ -16,8 +18,8 @@ let playerSpeed = 2;
 
 // Load game assets and return the promise
 const loadAssets = () => {
-  return imageLoader.load({ 
-    path: './images/astronaut_run.png' 
+  return imageLoader.load({
+    path: './images/astronaut_run.png'
   }).then(image => playerSprite = image);
 };
 
@@ -69,8 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
   loadAssets().then(() => {
     createObjects();
 
-    // Append and scale renderer  
-    document.body.append(renderer.element);  
+    // Append and scale renderer
+    document.body.append(renderer.element);
 
     // Assign update tasks and start core update loop
     retron.updateTasks.add(update);
