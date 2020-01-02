@@ -575,3 +575,6 @@ ASALocalRun/
 healthchecksdb
 
 # End of https://www.gitignore.io/api/node,sass,macos,windows,jetbrains,visualstudio,visualstudiocode
+
+# Builds
+dist

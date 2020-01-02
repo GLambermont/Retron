@@ -4,8 +4,8 @@
     "recurse": true
   },
   "source": {
-    "include": ["src/js"],
-    "exclude": [],
+    "include": ["src"],
     "includePattern": ".+\\.js(doc|x)?$"
-  }
+  },
+  "sourceType": "module"
 }
