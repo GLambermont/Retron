@@ -1,7 +1,6 @@
 import pkg from './package.json';
 import resolve from '@rollup/plugin-node-resolve';
-import { eslint } from 'rollup-plugin-eslint';
-import babel from 'rollup-plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
 import { terser } from "rollup-plugin-terser";
 
 const { MODE } = process.env;
@@ -23,10 +22,7 @@ const globalPlugins = [
     browser: true,
     preferBuiltins: false
   }),
-  eslint(),
-  babel({
-    exclude: 'node_modules/**' 
-  })
+  commonjs()
 ];
 
 // Settings for different modes set with MODE option
@@ -55,7 +51,7 @@ export default {
     banner,
     file: `./dist/retron.${target}.js`,
     format: target,
-    sourcemap: true
+    sourcemap: true,
   })),
   plugins: compilationSettings.plugins
 }
